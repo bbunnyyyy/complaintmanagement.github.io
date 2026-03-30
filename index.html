@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anurag University — Student Complaint Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1F44;
+    --navy-mid: #122456;
+    --navy-light: #1E3A6E;
+    --gold: #C9A84C;
+    --gold-light: #E2C270;
+    --gold-pale: #F5E9CC;
+    --gold-dim: #7A5F24;
+    --white: #FFFFFF;
+    --off-white: #F9F6EE;
+    --gray-100: #F3F0E8;
+    --gray-200: #E5E0D0;
+    --gray-400: #B0A88A;
+    --gray-600: #6B6248;
+    --gray-800: #2C2818;
+    --success: #1A6640;
+    --success-bg: #E8F5EE;
+    --warning: #7A4F00;
+    --warning-bg: #FFF4DE;
+    --error: #7A1A1A;
+    --error-bg: #FFF0F0;
+    --info: #0A3566;
+    --info-bg: #E6EDF8;
+    --border: #D4C9A8;
+    --shadow-sm: 0 2px 8px rgba(10,31,68,0.07);
+    --shadow-md: 0 4px 20px rgba(10,31,68,0.12);
+    --shadow-lg: 0 8px 40px rgba(10,31,68,0.18);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--off-white);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: var(--shadow-md);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-svg-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+  }
+  .logo-monogram {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.25));
+  }
+  .logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    line-height: 1;
+  }
+  .logo-wordmark .wm-anurag {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .logo-wordmark .wm-university {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 10.5px;
+    letter-spacing: 4px;
+    color: #CBD8EE;
+    text-transform: uppercase;
+    margin-top: 3px;
+    line-height: 1;
+  }
+  .logo-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(201,168,76,0.35);
+    margin: 0 18px 0 14px;
+    flex-shrink: 0;
+  }
+  .portal-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  nav {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  nav button {
+    font-family: var(--font-sans);
+    background: transparent;
+    border: none;
+    color: var(--gray-400);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  nav button:hover { color: var(--white); background: rgba(201,168,76,0.1); }
+  nav button.active { color: var(--gold); border-bottom: 2px solid var(--gold); border-radius: 0; }
+
+  /* ── HERO STRIP ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    padding: 48px 40px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 40px solid rgba(201,168,76,0.07);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 40px solid rgba(201,168,76,0.05);
+  }
+  .hero h2 {
+    font-family: var(--font-serif);
+    color: var(--white);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .hero h2 span { color: var(--gold-light); }
+  .hero p {
+    color: var(--gray-400);
+    font-size: 15px;
+    max-width: 540px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .hero-stat .lbl {
+    font-size: 11px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .card-sub {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 24px;
+  }
+
+  /* ── FORM ── */
+  .form-row { margin-bottom: 20px; }
+  .form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+  .form-row label span { color: var(--gold-dim); }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--gray-800);
+    background: var(--off-white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    background: var(--white);
+  }
+  .form-row textarea { min-height: 110px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* Category picker */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .cat-btn {
+    font-family: var(--font-sans);
+    background: var(--off-white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .cat-btn:hover { border-color: var(--gold); background: var(--gold-pale); }
+  .cat-btn.selected { border-color: var(--gold); background: var(--gold-pale); box-shadow: 0 0 0 3px rgba(201,168,76,0.2); }
+  .cat-btn .icon {
+    font-size: 22px;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+  }
+  .cat-btn .icon svg { width: 20px; height: 20px; }
+  .cat-btn .cat-name { font-size: 11px; font-weight: 600; color: var(--navy); letter-spacing: 0.3px; line-height: 1.3; }
+  .cat-btn.selected .cat-name { color: var(--gold); }
+
+  /* Priority */
+  .priority-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .pri-btn {
+    font-family: var(--font-sans);
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: var(--off-white);
+    transition: all 0.2s;
+  }
+  .pri-btn.low { color: var(--success); }
+  .pri-btn.low.selected { background: var(--success-bg); border-color: var(--success); }
+  .pri-btn.medium { color: var(--warning); }
+  .pri-btn.medium.selected { background: var(--warning-bg); border-color: #C97A00; }
+  .pri-btn.high { color: var(--error); }
+  .pri-btn.high.selected { background: var(--error-bg); border-color: var(--error); }
+
+  /* Submit btn */
+  .btn-submit {
+    font-family: var(--font-sans);
+    background: var(--navy);
+    color: var(--gold-light);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 13px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-submit:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit svg { width: 16px; height: 16px; }
+
+  /* Anonymous toggle */
+  .anon-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: var(--info-bg);
+    border-radius: var(--radius-sm);
+    border: 1px solid #C2D3EE;
+    margin-bottom: 20px;
+  }
+  .toggle-wrap { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+  .toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--gray-400);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.2s;
+  }
+  .toggle-wrap input:checked + .toggle-slider { background: var(--navy); }
+  .toggle-wrap input:checked + .toggle-slider::after { transform: translateX(18px); }
+  .anon-text { font-size: 13px; color: var(--info); }
+  .anon-text strong { font-weight: 600; display: block; margin-bottom: 1px; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {}
+
+  /* Quick guide */
+  .guide-steps { list-style: none; counter-reset: steps; }
+  .guide-steps li {
+    counter-increment: steps;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .guide-steps li::before {
+    content: counter(steps);
+    min-width: 24px;
+    height: 24px;
+    background: var(--navy);
+    color: var(--gold-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Contact card */
+  .contact-list { list-style: none; }
+  .contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13px;
+  }
+  .contact-list li:last-child { border-bottom: none; }
+  .contact-list .dept { font-weight: 600; color: var(--navy); font-size: 12px; display: block; }
+  .contact-list .info { color: var(--gray-600); }
+  .c-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 4px;
+  }
+  .c-dot.infra { background: #3B8BD4; }
+  .c-dot.faculty { background: #D4537E; }
+  .c-dot.admin { background: #639922; }
+  .c-dot.hostel { background: #BA7517; }
+  .c-dot.acad { background: #7F77DD; }
+
+  /* ── TRACK PAGE ── */
+  .track-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .track-search input {
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--gray-800);
+    background: var(--off-white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .track-search input:focus { border-color: var(--gold); background: var(--white); }
+  .track-search button {
+    font-family: var(--font-sans);
+    background: var(--navy);
+    color: var(--gold-light);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .track-search button:hover { background: var(--navy-light); }
+
+  /* Complaint cards */
+  .complaint-list { display: flex; flex-direction: column; gap: 14px; }
+  .complaint-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .complaint-card:hover { box-shadow: var(--shadow-md); }
+  .cc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .cc-id { font-size: 11px; font-weight: 700; color: var(--gold-dim); letter-spacing: 1px; text-transform: uppercase; }
+  .cc-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .cc-desc { font-size: 13px; color: var(--gray-600); line-height: 1.5; margin-bottom: 12px; }
+  .cc-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+  /* Badges */
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .badge.open { background: var(--info-bg); color: var(--info); border: 1px solid #C2D3EE; }
+  .badge.review { background: var(--warning-bg); color: var(--warning); border: 1px solid #E8C97A; }
+  .badge.resolved { background: var(--success-bg); color: var(--success); border: 1px solid #9ECDB5; }
+  .badge.rejected { background: var(--error-bg); color: var(--error); border: 1px solid #E8AAAA; }
+  .badge.cat {
+    background: var(--gold-pale);
+    color: var(--gold-dim);
+    border: 1px solid #DFC97A;
+  }
+  .badge.pri-low { background: var(--success-bg); color: var(--success); border: 1px solid #9ECDB5; }
+  .badge.pri-med { background: var(--warning-bg); color: var(--warning); border: 1px solid #E8C97A; }
+  .badge.pri-hi { background: var(--error-bg); color: var(--error); border: 1px solid #E8AAAA; }
+
+  /* Status timeline */
+  .timeline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+  .timeline-steps { display: flex; gap: 0; }
+  .ts-step { flex: 1; position: relative; }
+  .ts-step::before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background: var(--gray-200);
+  }
+  .ts-step:last-child::before { display: none; }
+  .ts-step.done::before { background: var(--gold); }
+  .ts-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-200);
+    background: var(--white);
+    margin: 0 auto 5px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+  .ts-step.done .ts-dot { border-color: var(--gold); background: var(--gold); }
+  .ts-step.current .ts-dot { border-color: var(--navy); background: var(--navy); }
+  .ts-label { text-align: center; font-size: 10px; color: var(--gray-400); font-weight: 500; }
+  .ts-step.done .ts-label, .ts-step.current .ts-label { color: var(--navy); font-weight: 600; }
+
+  /* ── SUCCESS MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,31,68,0.6);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px 36px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    border-top: 4px solid var(--gold);
+    animation: pop 0.3s ease;
+  }
+  @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--gold-pale);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .modal-icon svg { width: 32px; height: 32px; color: var(--gold-dim); }
+  .modal-box h3 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .modal-box p { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-bottom: 6px; }
+  .ticket-id {
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    background: var(--gold-pale);
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+    letter-spacing: 2px;
+    margin: 12px 0 20px;
+    display: inline-block;
+  }
+  .modal-actions { display: flex; gap: 10px; justify-content: center; }
+  .btn-modal {
+    font-family: var(--font-sans);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-modal.primary { background: var(--navy); color: var(--gold-light); }
+  .btn-modal.primary:hover { background: var(--navy-light); }
+  .btn-modal.secondary { background: var(--gray-100); color: var(--navy); border: 1px solid var(--border); }
+  .btn-modal.secondary:hover { background: var(--gray-200); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 2px solid var(--gold);
+    padding: 24px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 60px;
+  }
+  footer strong { color: var(--gold-light); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--gray-600);
+  }
+  .empty-state svg { width: 56px; height: 56px; color: var(--gold); opacity: 0.5; margin-bottom: 14px; }
+  .empty-state h3 { font-family: var(--font-serif); font-size: 18px; color: var(--navy); margin-bottom: 6px; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .filter-btn {
+    font-family: var(--font-sans);
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--gold); color: var(--gold-dim); }
+  .filter-btn.active { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+
+  /* Char counter */
+  .char-count { font-size: 11px; color: var(--gray-400); text-align: right; margin-top: 4px; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .main-wrap { grid-template-columns: 1fr; padding: 20px; }
+    .header-top { padding: 12px 20px; }
+    .hero { padding: 32px 20px 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+    nav button { padding: 8px 10px; font-size: 12px; }
+    .logo-divider, .portal-label { display: none; }
+    .wm-anurag { font-size: 16px; letter-spacing: 2px; }
+    .wm-university { font-size: 9px; letter-spacing: 3px; }
+    .logo-monogram { width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div class="logo-area">
+      <!-- Anurag University Logo — inline SVG recreation of the AU monogram -->
+      <div class="logo-svg-wrap">
+        <!-- AU Monogram SVG — faithful recreation of Anurag University mark -->
+        <svg class="logo-monogram" viewBox="0 0 60 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Red A: left diagonal stroke -->
+          <polygon points="2,50 16,6 22,6 8,50" fill="#C0272D"/>
+          <!-- Red A: crossbar -->
+          <polygon points="8,31 22,31 21,36 7,36" fill="#C0272D"/>
+          <!-- Navy A: right diagonal of A (doubles as left of U) -->
+          <polygon points="16,6 30,50 24,50 12,14" fill="#1B2E5E"/>
+          <!-- Navy U: right stroke going down then curving -->
+          <path d="M28,6 L34,6 L34,36 Q34,50 44,50 Q54,50 54,36 L54,6 L48,6 L48,35 Q48,44 44,44 Q40,44 40,35 L40,6 Z" fill="#1B2E5E"/>
+        </svg>
+
+        <!-- Wordmark -->
+        <div class="logo-wordmark">
+          <span class="wm-anurag">Anurag</span>
+          <span class="wm-university">University</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="logo-divider"></div>
+
+        <!-- Portal label -->
+        <span class="portal-label">Student Grievance Portal</span>
+      </div>
+    </div>
+    <nav>
+      <button class="active" id="nav-submit" onclick="showPage('submit')">Submit Complaint</button>
+      <button id="nav-track" onclick="showPage('track')">Track Status</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="hero-submit">
+  <!-- Watermark AU monogram -->
+  <svg style="position:absolute;right:-40px;top:-30px;opacity:0.04;pointer-events:none;" width="260" height="260" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="4,44 18,8 25,8 11,44" fill="#fff"/>
+    <polygon points="18,8 32,44 25,44 14,16" fill="#fff"/>
+    <rect x="10" y="28" width="18" height="4.5" rx="1" fill="#fff"/>
+    <path d="M26,8 L33,8 L33,34 Q33,44 43,44 Q53,44 53,34 L53,8 L48,8 L48,33 Q48,39 43,39 Q38,39 38,33 L38,8 Z" fill="#fff" transform="translate(-5,0) scale(0.95)"/>
+  </svg>
+  <h2>Your voice <span>matters.</span></h2>
+  <p>Submit grievances regarding campus facilities, faculty, academics, hostel or administration — and we'll ensure they are addressed.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num" id="stat-total">0</div><div class="lbl">Complaints Filed</div></div>
+    <div class="hero-stat"><div class="num" id="stat-resolved">0</div><div class="lbl">Resolved</div></div>
+    <div class="hero-stat"><div class="num">48h</div><div class="lbl">Avg Response</div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- ══ SUBMIT PAGE ══ -->
+  <div id="page-submit" class="page active">
+    <div class="card">
+      <div class="card-title">File a New Complaint</div>
+      <div class="card-sub">All fields marked <span>*</span> are required. Your complaint will be registered and forwarded to the relevant department.</div>
+
+      <!-- Student info -->
+      <div class="form-grid">
+        <div class="form-row">
+          <label>Full Name <span>*</span></label>
+          <input type="text" id="f-name" placeholder="e.g. Rahul Sharma" maxlength="80">
+        </div>
+        <div class="form-row">
+          <label>Roll Number <span>*</span></label>
+          <input type="text" id="f-roll" placeholder="e.g. 22MH1A0501" maxlength="20">
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label>Branch / Department <span>*</span></label>
+          <select id="f-branch">
+            <option value="">— Select Branch —</option>
+            <option>CSE</option>
+            <option>ECE</option>
+            <option>EEE</option>
+            <option>Mechanical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>IT</option>
+            <option>AIDS</option>
+            <option>AIML</option>
+            <option>MBA</option>
+            <option>MCA</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Year of Study <span>*</span></label>
+          <select id="f-year">
+            <option value="">— Select Year —</option>
+            <option>I Year</option>
+            <option>II Year</option>
+            <option>III Year</option>
+            <option>IV Year</option>
+            <option>PG I Year</option>
+            <option>PG II Year</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Email Address <span>*</span></label>
+        <input type="email" id="f-email" placeholder="student@anurag.edu.in" maxlength="100">
+      </div>
+
+      <!-- Anonymous toggle -->
+      <div class="anon-row">
+        <label class="toggle-wrap">
+          <input type="checkbox" id="f-anon" onchange="toggleAnon(this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+        <div class="anon-text">
+          <strong>Submit Anonymously</strong>
+          Your personal details will not be shared with the concerned department. Tracking ID will still be provided.
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="form-row">
+        <label>Complaint Category <span>*</span></label>
+      </div>
+      <div class="category-grid">
+        <button class="cat-btn" onclick="selectCat(this,'Infrastructure / Facilities')">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 21V9h6v12M3 9h18"/></svg>
+          </div>
+          <div class="cat-name">Infrastructure &amp; Facilities</div>
+        </button>
+        <button class="cat-btn" onclick="selectCat(this,'Faculty / Teachers')">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="cat-name">Faculty / Teachers</div>
+        </button>
+        <button class="cat-btn" onclick="selectCat(this,'Academics & Curriculum')">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <div class="cat-name">Academics &amp; Curriculum</div>
+        </button>
+        <button class="cat-btn" onclick="selectCat(this,'Hostel & Mess')">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          </div>
+          <div class="cat-name">Hostel &amp; Mess</div>
+        </button>
+        <button class="cat-btn" onclick="selectCat(this,'Administration & Staff')">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8L4 7h16z"/></svg>
+          </div>
+          <div class="cat-name">Administration &amp; Staff</div>
+        </button>
+        <button class="cat-btn" onclick="selectCat(this,'Other')">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          </div>
+          <div class="cat-name">Other</div>
+        </button>
+      </div>
+      <input type="hidden" id="f-category" value="">
+
+      <!-- Title -->
+      <div class="form-row">
+        <label>Complaint Title <span>*</span></label>
+        <input type="text" id="f-title" placeholder="Brief subject of your complaint" maxlength="120" oninput="updateCharCount(this,'tc-title',120)">
+        <div class="char-count" id="tc-title">0 / 120</div>
+      </div>
+
+      <!-- Location -->
+      <div class="form-row">
+        <label>Location / Venue (if applicable)</label>
+        <input type="text" id="f-location" placeholder="e.g. Block-C, Room 304 / Canteen / Boys Hostel Block-2" maxlength="100">
+      </div>
+
+      <!-- Description -->
+      <div class="form-row">
+        <label>Detailed Description <span>*</span></label>
+        <textarea id="f-desc" placeholder="Please describe the issue in detail — what happened, when it happened, who was involved, and any relevant context..." maxlength="1000" oninput="updateCharCount(this,'tc-desc',1000)"></textarea>
+        <div class="char-count" id="tc-desc">0 / 1000</div>
+      </div>
+
+      <!-- Priority -->
+      <div class="form-row">
+        <label>Priority Level <span>*</span></label>
+      </div>
+      <div class="priority-row">
+        <button class="pri-btn low" id="pri-low" onclick="selectPri('low')">🟢 Low</button>
+        <button class="pri-btn medium" id="pri-med" onclick="selectPri('medium')">🟡 Medium</button>
+        <button class="pri-btn high" id="pri-hi" onclick="selectPri('high')">🔴 High / Urgent</button>
+      </div>
+      <input type="hidden" id="f-priority" value="">
+
+      <button class="btn-submit" onclick="submitComplaint()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Submit Complaint
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ TRACK PAGE ══ -->
+  <div id="page-track" class="page">
+    <div class="card">
+      <div class="card-title">Track Your Complaint</div>
+      <div class="card-sub">Enter your Ticket ID to check the current status, or browse all complaints below.</div>
+      <div class="track-search">
+        <input type="text" id="search-id" placeholder="Enter Ticket ID e.g. AU-2024-00012" onkeyup="if(event.key==='Enter')searchTicket()">
+        <button onclick="searchTicket()">Search</button>
+      </div>
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" onclick="filterComplaints('all',this)">All</button>
+        <button class="filter-btn" onclick="filterComplaints('open',this)">Open</button>
+        <button class="filter-btn" onclick="filterComplaints('review',this)">Under Review</button>
+        <button class="filter-btn" onclick="filterComplaints('resolved',this)">Resolved</button>
+      </div>
+      <div id="complaint-list" class="complaint-list"></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="card">
+      <div class="card-title" style="font-size:16px;">How It Works</div>
+      <div class="card-sub" style="margin-bottom:16px;">Your complaint in 4 simple steps</div>
+      <ol class="guide-steps">
+        <li><div><strong style="color:var(--navy);display:block;margin-bottom:2px;">Fill the Form</strong>Select category, describe your issue clearly with relevant details.</div></li>
+        <li><div><strong style="color:var(--navy);display:block;margin-bottom:2px;">Get Ticket ID</strong>A unique tracking ID is generated instantly upon submission.</div></li>
+        <li><div><strong style="color:var(--navy);display:block;margin-bottom:2px;">Review Process</strong>Complaint is forwarded to the concerned department within 24 hours.</div></li>
+        <li><div><strong style="color:var(--navy);display:block;margin-bottom:2px;">Resolution</strong>Track status and receive email updates on progress and resolution.</div></li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="font-size:16px;">Department Contacts</div>
+      <div class="card-sub" style="margin-bottom:12px;">For urgent escalations</div>
+      <ul class="contact-list">
+        <li>
+          <div class="c-dot infra"></div>
+          <div><span class="dept">Infrastructure & Maintenance</span><span class="info">infra@anurag.edu.in</span></div>
+        </li>
+        <li>
+          <div class="c-dot faculty"></div>
+          <div><span class="dept">Academic Affairs & Faculty</span><span class="info">academics@anurag.edu.in</span></div>
+        </li>
+        <li>
+          <div class="c-dot hostel"></div>
+          <div><span class="dept">Hostel & Student Welfare</span><span class="info">hostel@anurag.edu.in</span></div>
+        </li>
+        <li>
+          <div class="c-dot admin"></div>
+          <div><span class="dept">Administration Office</span><span class="info">admin@anurag.edu.in</span></div>
+        </li>
+        <li>
+          <div class="c-dot acad"></div>
+          <div><span class="dept">Student Grievance Cell</span><span class="info">grievance@anurag.edu.in</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card" style="background:var(--navy);border-color:var(--gold-dim);">
+      <div style="font-family:var(--font-serif);font-size:16px;color:var(--gold-light);margin-bottom:6px;">Need Help?</div>
+      <p style="font-size:13px;color:var(--gray-400);line-height:1.6;margin-bottom:14px;">Visit the Student Grievance Cell in the Administrative Block, Ground Floor, Room 101.</p>
+      <p style="font-size:12px;color:var(--gray-400);">📞 040-XXXX-XXXX</p>
+      <p style="font-size:12px;color:var(--gray-400);">🕘 Mon–Sat, 9AM – 5PM</p>
+    </div>
+  </aside>
+
+</div><!-- /main-wrap -->
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h3>Complaint Submitted!</h3>
+    <p>Your complaint has been registered successfully. Please save your Ticket ID for tracking:</p>
+    <div class="ticket-id" id="modal-ticket">AU-2024-00001</div>
+    <p style="font-size:12px;margin-bottom:20px;">A confirmation will be sent to your registered email address.</p>
+    <div class="modal-actions">
+      <button class="btn-modal secondary" onclick="closeModal()">Submit Another</button>
+      <button class="btn-modal primary" onclick="goTrack()">Track Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <!-- Footer logo mini -->
+  <svg style="vertical-align:middle;margin-right:6px;" width="22" height="22" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="4,44 18,8 25,8 11,44" fill="#C0272D"/>
+    <polygon points="18,8 32,44 25,44 14,16" fill="#CBD8EE"/>
+    <rect x="10" y="28" width="18" height="4.5" fill="#C0272D"/>
+    <path d="M26,8 L33,8 L33,34 Q33,44 43,44 Q53,44 53,34 L53,8 L48,8 L48,33 Q48,39 43,39 Q38,39 38,33 L38,8 Z" fill="#CBD8EE" transform="translate(-5,0) scale(0.95)"/>
+  </svg>
+  <strong>Anurag University</strong> — Student Complaint Management System &nbsp;|&nbsp;
+  For emergencies contact Security: 040-XXXX-XXXX &nbsp;|&nbsp;
+  © 2024 Anurag University. All rights reserved.
+</footer>
+
+<script>
+  // ── State ──
+  let complaints = [];
+  let selectedCategory = '';
+  let selectedPriority = '';
+  let currentFilter = 'all';
+  let ticketCounter = 1;
+
+  // ── Seed with demo data ──
+  function seedDemoData() {
+    const demos = [
+      { id:'AU-2024-00001', name:'Arjun Reddy', roll:'21MH1A0534', branch:'CSE', year:'III Year', email:'arjun@anurag.edu.in', category:'Infrastructure / Facilities', title:'Projector not working in C-Block classrooms', desc:'The projectors in rooms C-301 and C-302 have been non-functional for the past two weeks, severely affecting lecture quality.', priority:'high', status:'review', location:'Block-C, Rooms 301-302', anon:false, date:'2024-03-10' },
+      { id:'AU-2024-00002', name:'Priya Sharma', roll:'22MH1A0612', branch:'ECE', year:'II Year', email:'priya@anurag.edu.in', category:'Hostel & Mess', title:'Unhygienic conditions in the mess hall', desc:'The mess tables and floors are not being cleaned properly after lunch. There are insects spotted near the food serving area.', priority:'high', status:'open', location:'Girls Hostel Mess', anon:false, date:'2024-03-12' },
+      { id:'AU-2024-00003', name:'Kiran Kumar', roll:'20MH1A0345', branch:'Mechanical Engineering', year:'IV Year', email:'kiran@anurag.edu.in', category:'Faculty / Teachers', title:'Faculty frequently cancelling classes without notice', desc:'The subject faculty for Fluid Mechanics has cancelled more than 8 classes this semester without informing students or making up the sessions.', priority:'medium', status:'resolved', location:'', anon:false, date:'2024-03-05' },
+      { id:'AU-2024-00004', name:'Anonymous', roll:'', branch:'CSE', year:'II Year', email:'', category:'Administration & Staff', title:'Delay in issuing bonafide certificates', desc:'Students applying for scholarships and internships are being made to wait over 3 weeks for bonafide certificates. This is affecting their applications.', priority:'medium', status:'open', location:'Admin Block', anon:true, date:'2024-03-14' },
+      { id:'AU-2024-00005', name:'Sneha Patel', roll:'22MH1A0789', branch:'AIDS', year:'II Year', email:'sneha@anurag.edu.in', category:'Academics & Curriculum', title:'Lab sessions not being conducted as per timetable', desc:'AI Lab sessions scheduled on Thursdays are consistently being replaced with theory classes, denying hands-on practice.', priority:'low', status:'review', location:'AI Lab, D Block', anon:false, date:'2024-03-13' },
+    ];
+    complaints = demos;
+    ticketCounter = demos.length + 1;
+    updateStats();
+  }
+
+  function updateStats() {
+    document.getElementById('stat-total').textContent = complaints.length;
+    document.getElementById('stat-resolved').textContent = complaints.filter(c => c.status==='resolved').length;
+  }
+
+  // ── Navigation ──
+  function showPage(pg) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-'+pg).classList.add('active');
+    document.getElementById('nav-'+pg).classList.add('active');
+    if(pg==='track') renderComplaints();
+  }
+
+  // ── Category / Priority ──
+  function selectCat(el, cat) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCategory = cat;
+    document.getElementById('f-category').value = cat;
+  }
+  function selectPri(pri) {
+    document.querySelectorAll('.pri-btn').forEach(b => b.classList.remove('selected'));
+    document.getElementById('pri-'+pri.replace('medium','med')).classList.add('selected');
+    selectedPriority = pri;
+    document.getElementById('f-priority').value = pri;
+  }
+
+  // ── Anonymous toggle ──
+  function toggleAnon(on) {
+    const fields = ['f-name','f-roll','f-email'];
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      el.disabled = on;
+      el.style.opacity = on ? '0.4' : '1';
+      if(on) { el.dataset.prev = el.value; el.value = ''; }
+      else if(el.dataset.prev) el.value = el.dataset.prev;
+    });
+  }
+
+  // ── Char count ──
+  function updateCharCount(el, targetId, max) {
+    document.getElementById(targetId).textContent = el.value.length + ' / ' + max;
+  }
+
+  // ── Validation ──
+  function validate() {
+    const anon = document.getElementById('f-anon').checked;
+    if(!anon && !document.getElementById('f-name').value.trim()) return alert('Please enter your name.');
+    if(!anon && !document.getElementById('f-roll').value.trim()) return false || alert('Please enter your Roll Number.');
+    if(!document.getElementById('f-branch').value) return alert('Please select your branch.');
+    if(!document.getElementById('f-year').value) return alert('Please select your year of study.');
+    if(!anon && !document.getElementById('f-email').value.trim()) return alert('Please enter your email address.');
+    if(!selectedCategory) return alert('Please select a complaint category.');
+    if(!document.getElementById('f-title').value.trim()) return alert('Please enter a complaint title.');
+    if(!document.getElementById('f-desc').value.trim()) return alert('Please describe your complaint in detail.');
+    if(!selectedPriority) return alert('Please select a priority level.');
+    return true;
+  }
+
+  // ── Submit ──
+  function submitComplaint() {
+    if(!validate()) return;
+    const anon = document.getElementById('f-anon').checked;
+    const id = 'AU-2024-' + String(ticketCounter).padStart(5,'0');
+    ticketCounter++;
+    const c = {
+      id,
+      name: anon ? 'Anonymous' : document.getElementById('f-name').value.trim(),
+      roll: anon ? '' : document.getElementById('f-roll').value.trim(),
+      branch: document.getElementById('f-branch').value,
+      year: document.getElementById('f-year').value,
+      email: anon ? '' : document.getElementById('f-email').value.trim(),
+      category: selectedCategory,
+      title: document.getElementById('f-title').value.trim(),
+      desc: document.getElementById('f-desc').value.trim(),
+      location: document.getElementById('f-location').value.trim(),
+      priority: selectedPriority,
+      status: 'open',
+      anon,
+      date: new Date().toISOString().split('T')[0]
+    };
+    complaints.unshift(c);
+    updateStats();
+    document.getElementById('modal-ticket').textContent = id;
+    document.getElementById('modal').classList.add('show');
+    resetForm();
+  }
+
+  function resetForm() {
+    ['f-name','f-roll','f-email','f-title','f-desc','f-location'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('f-branch').value='';
+    document.getElementById('f-year').value='';
+    document.getElementById('f-anon').checked=false;
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('selected'));
+    document.querySelectorAll('.pri-btn').forEach(b=>b.classList.remove('selected'));
+    selectedCategory=''; selectedPriority='';
+    ['tc-title','tc-desc'].forEach(id=>document.getElementById(id).textContent='0 / '+document.getElementById(id).textContent.split('/')[1].trim());
+    toggleAnon(false);
+  }
+
+  function closeModal() { document.getElementById('modal').classList.remove('show'); }
+  function goTrack() { closeModal(); showPage('track'); }
+
+  // ── Render Complaints ──
+  function statusLabel(s) {
+    const map = { open:'Open', review:'Under Review', resolved:'Resolved', rejected:'Rejected' };
+    return map[s]||s;
+  }
+  function statusClass(s) {
+    return s==='review'?'review':s;
+  }
+  function priClass(p) {
+    return p==='low'?'pri-low':p==='medium'?'pri-med':'pri-hi';
+  }
+  function priLabel(p) {
+    return p==='low'?'Low Priority':p==='medium'?'Medium Priority':'High / Urgent';
+  }
+  function timelineStep(status) {
+    const steps = ['open','review','resolved'];
+    const idx = steps.indexOf(status);
+    const labels = ['Submitted','Under Review','Resolved'];
+    return labels.map((lbl,i)=>`
+      <div class="ts-step ${i<idx?'done':''} ${i===idx?'current':''}">
+        <div class="ts-dot"></div>
+        <div class="ts-label">${lbl}</div>
+      </div>`).join('');
+  }
+
+  function renderComplaints(filter) {
+    if(filter) currentFilter=filter;
+    let list = complaints;
+    const searchVal = document.getElementById('search-id')?.value.trim().toUpperCase();
+    if(searchVal) list = list.filter(c=>c.id.toUpperCase().includes(searchVal)||c.title.toLowerCase().includes(searchVal.toLowerCase()));
+    if(currentFilter!=='all') list = list.filter(c=>c.status===currentFilter);
+
+    const container = document.getElementById('complaint-list');
+    if(list.length===0){
+      container.innerHTML=`<div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3>No complaints found</h3>
+        <p style="font-size:13px;">Try a different filter or submit a new complaint.</p>
+      </div>`; return;
+    }
+    container.innerHTML = list.map(c=>`
+      <div class="complaint-card">
+        <div class="cc-header">
+          <span class="cc-id">${c.id}</span>
+          <span class="badge ${statusClass(c.status)}">${statusLabel(c.status)}</span>
+        </div>
+        <div class="cc-title">${c.title}</div>
+        <div class="cc-desc">${c.desc.length>140?c.desc.slice(0,140)+'…':c.desc}</div>
+        <div class="cc-meta">
+          <span class="badge cat">${c.category}</span>
+          <span class="badge ${priClass(c.priority)}">${priLabel(c.priority)}</span>
+          <span style="font-size:11px;color:var(--gray-400);margin-left:auto;">${c.anon?'Anonymous':c.branch+' · '+c.year} &nbsp;·&nbsp; ${c.date}</span>
+        </div>
+        ${c.status!=='rejected'?`<div class="timeline"><div class="timeline-steps">${timelineStep(c.status)}</div></div>`:''}
+      </div>`).join('');
+  }
+
+  function filterComplaints(f, btn) {
+    currentFilter=f;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderComplaints(f);
+  }
+
+  function searchTicket() { renderComplaints(); }
+
+  // ── Init ──
+  seedDemoData();
+</script>
+</body>
+</html>
